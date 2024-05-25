@@ -17,10 +17,8 @@ flt_bill = float(total_bill)
 flt_pbill = float(percent_bill)
 int_pbill = int(people_bill)
 
-ttlBill= flt_bill * (1 + (flt_pbill/100))
-ttlSplitBill = float(ttlBill/int_pbill)
-round(ttlSplitBill, 2)
+ttl_bill= flt_bill * (1 + (flt_pbill/100))
+ttl_split_bill = float(ttl_bill/int_pbill)
 
-
-print(f"Each person should play ${ttlSplitBill:.2f}.")
+print(f"Each person should play ${ttl_split_bill:.2f}.")
                    
