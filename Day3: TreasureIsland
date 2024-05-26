@@ -33,11 +33,11 @@ if question1 == "left":
           question2 = input("Do you want to swim of wait? ")
           if question2 == "wait":
                     question3 = input("Which door color do you want to open red, blue, yellow, or other? ")
-                    if question3 == "red":
+                    if question3.lower() == "red":
                               print("Burned by fire. Game Over.")
-                    elif question3 == "blue":
+                    elif question3.lower() == "blue":
                               print("Eaten by beasts. Game Over.")
-                    elif question3 == "yellow":
+                    elif question3.lower() == "yellow":
                               print("You Win!")
                     else:
                               print("Game Over")
