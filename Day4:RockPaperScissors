@@ -35,8 +35,8 @@ choices = [rock, paper, scissors]
 
 ai_choice = random.randint(0, len(choices) - 1)
 
-print(choice)
-print(ai_choice)
+#print(choice)
+#print(ai_choice)
 
 choices = [rock, paper, scissors]
 print(f"You chose: \n{choices[choice]} \nYour opponent chose: \n{choices[ai_choice]}")
