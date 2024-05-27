@@ -1,8 +1,6 @@
-
-# Online Python - IDE, Editor, Compiler, Interpreter
-
 import random
-#using list to create a rock paper scissors game
+#This is a rock paper scissors game using list
+
 rock = '''
     _______
 ---'   ____)
@@ -32,39 +30,44 @@ scissors = '''
 
 #Write your code below this line 👇
 user_choice = input("Choose 1, 0 for Rock, 1 for Paper, 2 for Scissors? ")
-your_choice = int(user_choice)
 
-choices = [rock, paper, scissors]
+choice = int(user_choice)
 
-ai_choice = random.randint(0, len(choices) - 1)
+if (choice > 2 or choice < 0):
+    print("Choose a valid number next time. You lose!")
 
-#print(your_choice)
-#print(ai_choice)
-
-choices = [rock, paper, scissors]
-print(f"You chose: \n{choices[your_choice]} \nYour opponent chose: \n{choices[ai_choice]}")
-
-if choices[your_choice] == rock:
-    if choices[ai_choice] == paper:
-        print("you lose rock wraps paper!")
-    elif choices[ai_choice] == scissors:
-        print("You win rock breaks scissors!")
-    else:
-        print("Your tied!")
-elif choices[your_choice] == paper:
-    if choices[ai_choice] == rock:
-        print("you win rock wraps paper!")
-    elif choices[ai_choice] == scissors:
-        print("You lose scissors cut paper!")
-    else:
-        print("Your tied!")
 else:
-    if choices[ai_choice] == paper:
-        print("you win scissors cut paper!")
-    elif choices[ai_choice] == rock:
-        print("You lose rock breaks scissors!")
+    choices = [rock, paper, scissors]
+    
+    ai_choice = random.randint(0, len(choices) - 1)
+
+    #test checking for the choices 
+    #print(choice)
+    #print(ai_choice)
+    
+    choices = [rock, paper, scissors]
+    print(f"You chose: \n{choices[choice]} \nYour opponent chose: \n{choices[ai_choice]}")
+    
+    if choices[choice] == rock:
+        if choices[ai_choice] == paper:
+            print("you lose rock wraps paper!")
+        elif choices[ai_choice] == scissors:
+            print("You win rock breaks scissors!")
+        else:
+            print("Your tied!")
+    elif choices[choice] == paper:
+        if choices[ai_choice] == rock:
+            print("you win paper wraps rock!")
+        elif choices[ai_choice] == scissors:
+            print("You lose scissors cut paper!")
+        else:
+            print("Your tied!")
     else:
-        print("Your tied!")
-
-
-
+        if choices[ai_choice] == paper:
+            print("you win scissors cut paper!")
+        elif choices[ai_choice] == rock:
+            print("You lose rock breaks scissors!")
+        else:
+            print("Your tied!")
+    
+    
