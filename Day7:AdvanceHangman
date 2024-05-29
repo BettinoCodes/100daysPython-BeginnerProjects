@@ -1,0 +1,127 @@
+import random
+#Step 1 
+#The task for this day was to make a hangman game, I went made mine with extra spice and made it capital letter friendly, free from symbols and numbers
+
+word_list = ["ShEame", "Game", "FaMe", "codeforthefun", "practice", "thefunofcode"]
+
+#TODO-1 - Randomly choose a word from the word_list and assign it to a variable called chosen_word.
+chosen_word = random.choice(word_list)
+list_of_chosen_word = list(chosen_word)
+
+for ind in range(len(list_of_chosen_word)):
+  list_of_chosen_word[ind] = '_'
+  
+print(chosen_word)
+print(list_of_chosen_word)
+
+lives = 0
+stages = [
+  """
+     -----
+     |   |
+         |
+         |
+         |
+         |
+  =========
+  """,
+  """
+     -----
+     |   |
+     O   |
+         |
+         |
+         |
+  =========
+  """,
+  """
+     -----
+     |   |
+     O   |
+     |   |
+         |
+         |
+  =========
+  """,
+  """
+     -----
+     |   |
+     O   |
+    /|   |
+         |
+         |
+  =========
+  """,
+  """
+     -----
+     |   |
+     O   |
+    /|\  |
+         |
+         |
+  =========
+  """,
+  """
+     -----
+     |   |
+     O   |
+    /|\  |
+    /    |
+         |
+  =========
+  """,
+  """
+     -----
+     |   |
+     O   |
+    /|\  |
+    / \  |
+         |
+  =========
+  """
+]
+
+words_left = len(chosen_word)
+print(stages[lives])
+guessed_words = []
+
+while (lives != 6 and words_left != 0):
+  valid_guess = False
+  #TODO-2 - Ask the user to guess a letter and assign their answer to a variable called guess. Make guess lowercase.
+  guess = input("Choose a letter: ").lower()
+  while(not valid_guess):
+    if (len(guess) != 1):
+      print("Make sure its just a letter")
+      guess = input("Choose a letter: ")
+    elif guess.lower() in guessed_words:
+      print("You already used that letter, choose another. ")
+      guess = input("Choose a letter: ")
+    elif guess.isdigit() or not guess.isalpha():
+      print("You cant use a number or symbols, type a letter. ")
+      guess = input("Choose a letter: ")
+    else:
+      valid_guess = True
+      
+  guessed_words.append(guess.lower())
+
+  if (valid_guess):
+    #TODO-3 - Check if the letter the user guessed (guess) is one of the letters in the chosen_word.
+    if guess in chosen_word or guess.lower() in chosen_word or guess.upper() in chosen_word:
+      for i in range(len(chosen_word)):
+        if chosen_word[i] == guess.lower():
+          list_of_chosen_word[i] = guess.lower()
+          words_left -= 1
+        if chosen_word[i] == guess.upper():
+          list_of_chosen_word[i] = guess.upper()
+          words_left -= 1
+      print(f"Nice, You have {words_left} letter/s left!")
+      joined_word = ' '.join(list_of_chosen_word)
+      print(f"{joined_word}\n")
+    else:
+      lives += 1
+      print(stages[lives])
+  
+if lives == 6:
+  print("Too many wrong guesses. \nYou lose!")
+elif words_left == 0:
+  print("You got the whole word. \nYou win!")
