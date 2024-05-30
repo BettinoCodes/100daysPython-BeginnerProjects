@@ -1,0 +1,111 @@
+#This day I had to make a Caesar Cipher encoder and decoder using function and I added a little more spices using validations etc
+
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+#TODO-1: Create a function called 'encrypt' that takes the 'text' and 'shift' as inputs.
+
+def encrypt(message, shiftn):
+    new_text = ''
+    n = len(message)
+    a = len(alphabet)
+    for i in range(n):
+        if message[i] in alphabet:
+            ind_alph = alphabet.index(message[i])
+            our_ind = ind_alph + shiftn
+            if our_ind < a:
+                new_text += alphabet[ind_alph + shiftn]
+            else:
+                new_text += alphabet[our_ind % a]
+        else:
+            new_text += message[i]
+        
+    print(f"Your encoded text is: {new_text}")
+
+#TODO-2: Inside the 'encrypt' function, shift each letter of the 'text' forwards in the alphabet by the shift amount and print the encrypted text.  
+    #e.g. 
+    #plain_text = "hello"
+    #shift = 5
+    #cipher_text = "mjqqt"
+    #print output: "The encoded text is mjqqt"
+
+#TODO-2: Inside the 'decrypt' function, shift each letter of the 'text' *backwards* in the alphabet by the shift amount and print the decrypted text.  
+  #e.g. 
+  #cipher_text = "mjqqt"
+  #shift = 5
+  #plain_text = "hello"
+  #print output: "The decoded text is hello"
+
+
+#TODO-3: Check if the user wanted to encrypt or decrypt the message by checking the 'direction' variable. Then call the correct function based on that 'drection' variable. You should be able to test the code to encrypt *AND* decrypt a message.
+
+def decrypt(message, shiftn):
+    new_text = ''
+    n = len(message)
+    a = len(alphabet)
+    for i in range(n):
+        if message[i] in alphabet:
+            ind_alph = alphabet.index(message[i])
+            our_ind = ind_alph - shiftn
+            if our_ind >= 0 and our_ind < 26:
+                new_text += alphabet[our_ind]
+            else:
+                new_text += alphabet[our_ind % a]
+        else:
+            new_text += message[i]
+
+    print(f"Your decoded text is: {new_text}")
+
+def bothEncDec(message, shiftn):
+    encrypt(message, shiftn)
+    decrypt(message, shiftn)
+
+
+logo = """           
+ ,adPPYba, ,adPPYYba,  ,adPPYba, ,adPPYba, ,adPPYYba, 8b,dPPYba,  
+a8"     "" ""     `Y8 a8P_____88 I8[    "" ""     `Y8 88P'   "Y8  
+8b         ,adPPPPP88 8PP"""""""  `"Y8ba,  ,adPPPPP88 88          
+"8a,   ,aa 88,    ,88 "8b,   ,aa aa    ]8I 88,    ,88 88          
+ `"Ybbd8"' `"8bbdP"Y8  `"Ybbd8"' `"YbbdP"' `"8bbdP"Y8 88   
+            88             88                                 
+           ""             88                                 
+                          88                                 
+ ,adPPYba, 88 8b,dPPYba,  88,dPPYba,   ,adPPYba, 8b,dPPYba,  
+a8"     "" 88 88P'    "8a 88P'    "8a a8P_____88 88P'   "Y8  
+8b         88 88       d8 88       88 8PP""""""" 88          
+"8a,   ,aa 88 88b,   ,a8" 88       88 "8b,   ,aa 88          
+ `"Ybbd8"' 88 88`YbbdP"'  88       88  `"Ybbd8"' 88          
+              88                                             
+              88           
+"""
+print(logo)
+play_again = True
+while(play_again):
+    direction = input("Type 'encode' to encrypt, type 'decode' to decrypt, type 'both' to show encrypt and decrypt:\n")
+    valid = False
+    while(not valid):
+        if direction != "encode" and direction != "decode" and direction != "both" :
+            print("Only type 'encode' or 'decode' or 'both' ")
+            direction = input("Type 'encode' to encrypt, type 'decode' to decrypt, or 'both' to show encryped and decrypted:\n")
+        else:
+            valid = True
+    
+    if (valid):
+        text = input("Type your message:\n").lower()
+        shift = int(input("Type the shift number:\n"))
+        if direction == "encode":
+            encrypt(message=text, shiftn=shift)
+        elif direction == "decode":
+            decrypt(message=text, shiftn=shift)
+        else:
+            bothEncDec(message=text, shiftn=shift)
+            
+    again = input("Do you want to try a new message to decode, 'yes' or 'no':\n").lower()
+    while(True):
+        if again != 'no' and again != 'yes':
+            again = input("Do you want to try a new message to decode, 'yes' or 'no':\n").lower()
+        else:
+            break
+
+    if again == 'no':
+        play_again = False
+        print("Thanks for using my Caesar Cipher!")
