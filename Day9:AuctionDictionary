@@ -1,0 +1,50 @@
+import os
+
+logo = '''
+                         ___________
+                         \         /
+                          )_______(
+                          |"""""""|_.-._,.---------.,_.-._
+                          |       | | |               | | ''-.
+                          |       |_| |_             _| |_..-'
+                          |_______| '-' `'---------'` '-'
+                          )"""""""(
+                         /_________\\
+                       .-------------.
+                      /_______________\\
+'''
+
+def add_to_auction(name, bid_amount, auct_dict):
+  auct_dict[name] = bid_amount
+
+def max_value(auction_dict):
+  max_bid = 0
+  a_name = ''
+  for key in auction_dict:
+    price = auction_dict[key]
+    if price > max_bid:
+      max_bid = price
+      a_name = key
+  print(f"The winner of the bid is {a_name} at ${max_bid}!")
+
+print(logo)
+auction_prcs = {}
+add_more = True
+
+while(add_more):
+  name = input("What is your name: \n")
+  bid_amount = int(input("What is your bid amount for this product: \n"))
+  add_to_auction(name, bid_amount, auction_prcs)
+  
+  again = input("Any more bids? 'yes' or 'no'\n").lower()
+  while(True):
+      if again != 'no' and again != 'yes':
+          again = input("Any more bids? 'yes' or 'no':\n").lower()
+      else:
+          break
+  os.system('clear')
+  if again == 'no':
+    add_more = False
+  
+max_value(auction_prcs)
+auction_prcs = {}
