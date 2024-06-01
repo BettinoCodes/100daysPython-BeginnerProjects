@@ -1,0 +1,140 @@
+import random
+import os
+
+#This day 11 was considered a capstone project, figured it out on my own, need to put some validations and maybe more logic for when they sums of the decks are equal value
+############### Blackjack Project #####################
+############### Our Blackjack House Rules #####################
+
+## The deck is unlimited in size. 
+## There are no jokers. 
+## The Jack/Queen/King all count as 10.
+## The the Ace can count as 11 or 1.
+## Use the following list as the deck of cards:
+## cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+## The cards in the list have equal probability of being drawn.
+## Cards are not removed from the deck as they are drawn.
+## The computer is the dealer.
+
+
+logo = """
+.------.            _     _            _    _            _    
+|A_  _ |.          | |   | |          | |  (_)          | |   
+|( \/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
+| \  /|K /\  |     | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
+|  \/ | /  \ |     | |_) | | (_| | (__|   <| | (_| | (__|   < 
+`-----| \  / |     |_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\\
+      |  \/ K|                            _/ |                
+      `------'                           |__/           
+"""
+
+
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
+
+def chose_start_cards(cards_list, ai_list):
+  for i in range (2):
+    chosen_n = random.choice(cards)
+    cards_list.append(chosen_n)
+
+  chosen_ai = random.choice(cards)
+  ai_list.append(chosen_ai)
+    
+  return cards_list, ai_list
+
+
+def hit_my_deck(my_cards, ai_card_list):
+  chosen_card = random.choice(cards)
+  my_cards.append(chosen_card)
+
+  chosen_aicard = random.choice(cards)
+  ai_card_list.append(chosen_aicard)
+  return my_cards, ai_card_list
+
+def sum_deck(cards_list):
+  sum = 0
+  for i in cards_list:
+    sum += i
+  return sum
+
+def print_deck(my_cards, ai_cards):
+  print(f"your cards, {my_cards}")
+  print(f"dealers cards: {ai_cards}")
+
+def ai_hit(ai_cards, user_cards, user_sum, ai_sum, you_won):
+  if ai_sum >= user_sum and ai_sum < 21:
+      you_won = False
+  else:
+    while ai_sum < 21:
+      chosen_aicard = random.choice(cards)
+      ai_cards.append(chosen_aicard)
+      ai_sum += chosen_aicard
+      if chosen_aicard == 11 and ai_sum > 21:
+          ai_sum -= 10
+          ai_cards[-1] = 1
+
+      if ai_sum > user_sum and ai_sum <= 21:
+          you_won = False
+          break
+      elif ai_sum == 21:
+          you_won = False
+          break
+      elif ai_sum > 21:
+          you_won = True
+          break
+      else:
+          you_won = True
+
+  print(f"End Result AI: {ai_cards} \nAI Sum: {ai_sum}")
+  return you_won
+    
+play = True
+while (play):
+  print(logo)
+  my_cards = []
+  ai_cards = []
+  your_sum = 0
+  ai_sum = 0
+  my_cards, ai_cards = chose_start_cards(my_cards, ai_cards)
+  print_deck(my_cards, ai_cards)
+  your_sum = sum_deck(my_cards)
+  ai_sum = sum_deck(ai_cards)
+  figure_winner = False
+
+  if your_sum == 21:
+    print("Very lucky, you win!")
+    break
+  else:
+    keep_hitting= True
+    while(keep_hitting):
+      start_game = input("Do you want to hit your deck: 'y' or 'n'\n")
+      if (start_game == 'y'):
+        my_cards, ai_cards = hit_my_deck(my_cards, ai_cards)
+        print_deck(my_cards, ai_cards)
+        your_sum = sum_deck(my_cards)
+        ai_sum = sum_deck(ai_cards)
+        print(f"Your sum: {your_sum}")
+        print(f"Your opponents sum: {ai_sum}")
+        if your_sum > 21:
+          print("You lose!")
+          break
+        if your_sum == 21 and ai_sum != 21:
+          print("You win!")
+          break
+      else:
+        figure_winner = True
+        keep_hitting = False
+  if figure_winner and ai_sum < 21:
+    winns = ai_hit(ai_cards, my_cards,your_sum, ai_sum, False)
+    print(f"Your sum: {your_sum}")
+    if winns:
+      print("You won")
+    else:
+      print("You lose")
+  play_again = input("do you want to play again: 'y' or 'n'\n")
+  if play_again == 'n':
+    print("Thank you for playin my BlackJack by BCodes")
+    play = False
+  else:
+    os.system("clear")
+
+
