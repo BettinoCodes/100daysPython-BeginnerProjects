@@ -60,7 +60,7 @@ continue_calc =True
 while continue_calc:
   result = 0
   answer = 0
-  first_num = int(input("choose your first number: \n"))
+  first_num = float(input("choose your first number: \n"))
   continue_solution = True
   while(continue_solution):
     operate = operation_select()
@@ -72,7 +72,7 @@ while continue_calc:
           operate = operation_select()
       else:
           break
-    second_num = int(input("choose your second number: \n"))
+    second_num = float(input("choose your second number: \n"))
     if operate == '+':
       result = operations["+"]
       print(f"{first_num} + {second_num} = {result(first_num, second_num)}")
