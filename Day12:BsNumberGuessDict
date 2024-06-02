@@ -1,0 +1,56 @@
+import random
+import os
+
+#A quick simple guessing game using a dictionary I added a medium difficulty for the fun of it enjoy!
+#Number Guessing Game Objectives:
+
+# Include an ASCII art logo.
+# Allow the player to submit a guess for a number between 1 and 100.
+# Check user's guess against actual answer. Print "Too high." or "Too low." depending on the user's answer. 
+# If they got the answer correct, show the actual answer to the player.
+# Track the number of turns remaining.
+# If they run out of turns, provide feedback to the player. 
+# Include two different difficulty levels (e.g., 10 guesses in easy mode, only 5 guesses in hard mode).
+logo = """  ____                       ____      
+ / ___|_   _  ___  ___ ___  | __ ) ___ 
+| |  _| | | |/ _ \/ __/ __| |  _ \/ __|
+| |_| | |_| |  __/\__ \__ \ | |_) \__ \
+
+ \____|\__,_|\___||___/___/ |____/|___/
+ _ __  _   _ _ __ ___ | |__   ___ _ __ 
+| '_ \| | | | '_ ` _ \| '_ \ / _ \ '__|
+| | | | |_| | | | | | | |_) |  __/ |   
+|_| |_|\__,_|_| |_| |_|_.__/ \___|_|   """
+
+levels = {
+"hard": 5,
+"medium": 7,
+"easy": 10
+}
+
+
+try_again = True
+while(try_again):
+  print(logo)
+  number_guess = random.randint(1, 101)
+  choose_difficulty = input("What level do you want: 'easy', 'medium', 'hard'\n")
+  n = levels[choose_difficulty]
+  print(f"You have {n} guesses to get the number")
+  while(n > 0):
+    number = int(input("Type a number between 1 and 100: \n"))
+    if number < number_guess:
+      print("Too low")
+    elif number > number_guess:
+      print("Too high")
+    else:
+      print("You beat my ai, YOU WIN!")
+      break
+    n -= 1
+    print(f"You have {n} tries left!")
+  if n == 0:
+    print("You lose!")
+  again = input("Do you want to play again? 'y', 'n'\n")
+  if again == n:
+    try_again = False
+  else:
+    os.system("clear")
