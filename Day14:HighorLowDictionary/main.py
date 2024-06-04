@@ -4,15 +4,18 @@ import art
 from game_data import data  
 
 
+import os
+import random
+import art 
+from game_data import data  
+
+
+
 def choose_persons():
-  '''This function is used to choose two random dictionaries'''
+  '''This function is used to choose a random dictionaries'''
   random_fame_person = random.randint(0, len(data) - 1)
-  random_fame_person2 = random.randint(0, len(data) - 1)
-  while(random_fame_person2 == random_fame_person):
-    random_fame_person2 = random.randint(0, len(data) - 1)
   person_1 = data[random_fame_person]
-  person_2 = data[random_fame_person2]
-  return person_1, person_2
+  return person_1
 
 def guess_who(p1, p2):
   '''This function is used to return two dictionaries depending on the input, must have
@@ -34,9 +37,11 @@ play_again = True
 while(play_again):
   correct = True
   score = 0
+  person1 = choose_persons()
   while(correct):
-    choose_persons()
-    person1, person2 = choose_persons()
+    person2 = choose_persons()
+    while(person2 == person1):
+      person2 = choose_persons()
     print(f"{person1['name']}, a {person1['description']} from {person1['country']} \n{art.vs}\n{person2['name']}, a {person2['description']} from {person2['country']}\n")
     chosen_person, other_person = guess_who(person1, person2)
   
@@ -48,6 +53,7 @@ while(play_again):
       os.system("clear")
       score += 1
       print(f"Your score is {score}")
+      person1 = person2
     else:
       os.system("clear")
       print("Wrong")
